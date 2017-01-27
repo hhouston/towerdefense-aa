@@ -18,14 +18,9 @@ With the Tower Defense Game, users will be able to:
 - [ ] Win or Lose
 
 ## Wireframes
-* [wireframes](wireframes)
 
 This game will have a grid, with a path for enemy pawns, area for users to place towers, and spots where users are unable to build. The main screen keeps track of the pausing and speeding-up of the game on the right with the level and number of lives displayed on the left. The bottom area displays towers to build when a tile is clicked.
-![board](docs/wireframes/board.png)
-
-Game Over Modal: Displays game score and allows the user to play again
-
-![game over](docs/wireframes/game_over.png)
+![board](docs/wireframes/board1.png)
 
 ## Architecture and Technologies
 
@@ -35,21 +30,66 @@ This project will be implement with the following technologies:
 - Canvas.js to display a board with tower and enemy pieces
 - Webpack to bundle the project scripts
 
-## Implementation Timeline
+## Code Snippets
 
-### Phase I: Board and Game Pieces (2 days)
+### Checks if the ninja is in range of the tower
 
-**Objective:** Set up of of the fist level layout with the appropriate pieces (turtles, emoji towers, bank at the end point). Set up back end game logic.
 
-### Phase II: Add javascript listeners (2 days)
+  inRange() {
+    let inRange = false;
+    this.towers.forEach(tower => {
+      this.enemies.forEach(enemy => {
 
-**Objective:** Add the appropriate javascript listeners to the board to add/buy towers. Implement game logic of towers shooting and turtles taking damage and being cleared from the screen.
+        let towerX = tower.pos[0];
+        let towerY = tower.pos[1];
 
-### Phase III: Keep score (1 day)
+        let enemyX = enemy.pos[0];
+        let enemyY = enemy.pos[1];
 
-**Objective:** Adds a way to decrease users number of lives and end the game when it reaches 0 and display the user's score
+        let dist = Util.dist([towerX, towerY], [enemyX, enemyY]);
 
-### Bonus Features
+        if(dist < 160){
+          let bulletX = enemyX - towerX;
+          let bulletY = enemyY - towerY;
+
+          tower.fireBullet(bulletX, bulletY);
+          inRange = true;
+        }
+      });
+    });
+    return inRange;
+  }
+
+
+### Tracks ninja to decide WHERE to shoot
+
+
+  fireBullet(bulletX, bulletY) {
+
+    const relVel = Util.scale(
+      Util.dir(this.vel),
+      Bullet.SPEED
+    );
+
+    //calculate bulletVel based on enemy position
+    let bulletVel = [
+      bulletX, bulletY
+    ];
+
+    bulletVel = Util.normalize(bulletVel);
+    bulletVel = Util.scale(bulletVel, Bullet.SPEED);
+
+    const bullet = new Bullet({
+      pos: this.pos,
+      vel: bulletVel,
+      color: 'red',
+      game: this.game
+    });
+
+    this.game.add(bullet);
+  }
+
+### Future Features
 
 - [ ] High Score
 - [ ] New Levels
