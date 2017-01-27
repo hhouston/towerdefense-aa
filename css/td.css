@@ -1,0 +1,10 @@
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+#canvas {
+  border: black solid 1px;
+  width: 450;
+  height: 450;
+}

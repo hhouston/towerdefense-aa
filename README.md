@@ -13,9 +13,9 @@ The goal of NinjaDefense is just the opposite. Strategically navigate your ninja
 
 With the Tower Defense Game, users will be able to:
 
-- [ ] Start and stop the game
+- [ ] Navigate ninja (player)
 - [ ] Towers that shoot enemies
-- [ ] Keep score and loose
+- [ ] Win or Lose
 
 ## Wireframes
 * [wireframes](wireframes)
