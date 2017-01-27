@@ -1,6 +1,6 @@
 #NinjaDefense
 
-[Heroku Link](https://ninjadefense.herokuapp.com/)
+[Game Link](https://hhouston.github.io/towerdefense-aa/)
 
 ## Background
 
